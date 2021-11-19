@@ -82,13 +82,16 @@ GhRepo >> numberOfOpenIssues [
 
 { #category : #accessing }
 GhRepo >> pullRequests [
+  ^ self createFrom: 'pulls_url'
+    with: [:data | GhPullRequests new rawData: data]
+    onError: [GhPullRequests new]
 
-	| json dictionary path|
+"	| json dictionary path|
 	path :=  (rawData at: 'pulls_url').
-	"^path."
+	
 	path := path copyReplaceAll: '{/number}' with: ''.
 	
 	json := (self requestClient) get: path.
 	dictionary := STON fromString: json.
-	^ dictionary.
+	^ dictionary."
 ]

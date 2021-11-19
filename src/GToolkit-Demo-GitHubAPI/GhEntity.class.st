@@ -1,7 +1,7 @@
 Class {
 	#name : #GhEntity,
 	#superclass : #GhObject,
-	#category : 'GToolkit-Demo-GitHubAPI-Model'
+	#category : #'GToolkit-Demo-GitHubAPI-Model'
 }
 
 { #category : #accessing }
@@ -13,7 +13,7 @@ GhEntity >> createFrom: aKey with: aBlock onError: anErrorBlock [
 			trimmedUrl := url
 				copyWithRegex: '{.*}'
 				matchesTranslatedUsing: [ :each | ''].
-			ZnClient new 
+			(self requestClient) 
 				get: trimmedUrl
 				onSuccess: [ :result | 
 					[
