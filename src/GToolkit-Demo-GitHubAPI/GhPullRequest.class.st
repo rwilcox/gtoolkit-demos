@@ -14,7 +14,7 @@ GhPullRequest >> contributor [
 
 { #category : #accessing }
 GhPullRequest >> createdAt [
- "TODO: implement me"
+ ^ rawData at: 'created_at'
 ]
 
 { #category : #accessing }
