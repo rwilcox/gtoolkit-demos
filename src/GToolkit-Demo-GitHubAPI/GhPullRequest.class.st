@@ -7,7 +7,7 @@ Class {
 { #category : #accessing }
 GhPullRequest >> contributor [
   ^ self 
-		createFrom: (rawData at: 'user' at: 'url')
+		createWith: (rawData at: 'user') from: 'url'
 		with: [ :data | GhContributor new rawData: data ] 
 		onError: [ GhContributor new ]
 ]

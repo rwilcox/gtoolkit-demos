@@ -20,7 +20,9 @@ GhObject >> rawData: dictionary [
 
 { #category : #accessing }
 GhObject >> requestClient [
-  ^ requestClient ifNil: [ ZnClient new] ifNotNil: [requestClient].
+  requestClient ifNil: [ requestClient := ZnClient new ]. 
+
+  ^ requestClient.
 ]
 
 { #category : #accessing }

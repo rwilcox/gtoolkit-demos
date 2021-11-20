@@ -6,7 +6,13 @@ Class {
 
 { #category : #accessing }
 GhEntity >> createFrom: aKey with: aBlock onError: anErrorBlock [
-	^ rawData 
+  ^ self createWith: rawData from: aKey with: aBlock onError: anErrorBlock.
+	
+]
+
+{ #category : #accessing }
+GhEntity >> createWith: dataDictionary from: aKey with: aBlock onError: anErrorBlock [
+^ dataDictionary 
 		at: aKey
 		ifPresent: [ :url | 
 			| trimmedUrl |
@@ -18,8 +24,9 @@ GhEntity >> createFrom: aKey with: aBlock onError: anErrorBlock [
 				onSuccess: [ :result | 
 					[
 						aBlock value: (STON fromString: result)
-					] on: Error do: [ :e | anErrorBlock value ] ]
-				onError: [ anErrorBlock value ] ]
+					] on: Error do: [ :e | Transcript << e.
+					 anErrorBlock value ] ]
+				onError: [ self error: (self requestClient contents). anErrorBlock value ] ]
 		ifAbsent: [ {} ]
 ]
 
