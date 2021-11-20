@@ -21,9 +21,11 @@ GhEntity >> createWith: dataDictionary from: aKey with: aBlock onError: anErrorB
 				matchesTranslatedUsing: [ :each | ''].
 			(self requestClient) 
 				get: trimmedUrl
-				onSuccess: [ :result | 
+				onSuccess: [ :result | |newObj|
 					[
-						aBlock value: (STON fromString: result)
+						newObj := aBlock value: (STON fromString: result).
+						newObj requestClient: requestClient.
+						newObj.
 					] on: Error do: [ :e | Transcript << e.
 					 anErrorBlock value ] ]
 				onError: [ self error: (self requestClient contents). anErrorBlock value ] ]
