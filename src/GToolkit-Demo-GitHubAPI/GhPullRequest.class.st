@@ -6,15 +6,17 @@ Class {
 
 { #category : #accessing }
 GhPullRequest >> contributor [
-  ^ self 
-		createWith: (rawData at: 'user') from: 'url'
-		with: [ :data | GhContributor new rawData: data ] 
-		onError: [ GhContributor new ]
+  |output|
+  "shortcut normal pattern to reduce number of network requests"
+  output := GhContributor new rawData: (rawData at: 'user') .
+  output requestClient: requestClient.
+  ^ output
+		
 ]
 
 { #category : #accessing }
 GhPullRequest >> createdAt [
- ^ rawData at: 'created_at'
+ ^ (rawData at: 'created_at') asDateAndTime.
 ]
 
 { #category : #accessing }
