@@ -71,6 +71,17 @@ GhRepo >> gtEventsFor: aView [
 ]
 
 { #category : #accessing }
+GhRepo >> gtPullRequestsFor: aView [
+  <gtView>
+  ^ aView columnedList
+		title: 'Pull Requests';
+		items: [ self pullRequests ];
+		column: 'Name' text: #name;
+		column: 'Created At' text:  #createdAt "[:each | each createdAt asLocalStringYMDHM ]";
+		column: 'Contributor' text: #contributor.
+]
+
+{ #category : #accessing }
 GhRepo >> name [ 
 	^ rawData at: 'name'
 ]
